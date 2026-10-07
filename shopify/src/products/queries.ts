@@ -20,7 +20,7 @@ const PRODUCT_FIELDS = gql`
 `;
 
 const PRODUCT_BY_HANDLE = gql`
-  query productByHandle($handle: String!) {
+  query productFromHandle($handle: String!) {
     productByIdentifier(identifier: { handle: $handle }) {
       ${PRODUCT_FIELDS}
     }
