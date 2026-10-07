@@ -1,7 +1,7 @@
 import { assertNoUserErrors, gql, run, type GraphqlClient } from "../shopify-graphql.ts";
 import type { UserError } from "../errors.ts";
 
-export interface MetafieldInput {
+export interface MetafieldEntry {
   ownerId: string;
   namespace: string;
   key: string;
@@ -24,7 +24,7 @@ const METAFIELDS_SET = gql`
   }
 `;
 
-export async function setMetafields(client: GraphqlClient, metafields: MetafieldInput[]): Promise<number> {
+export async function setMetafields(client: GraphqlClient, metafields: MetafieldEntry[]): Promise<number> {
   let written = 0;
   for (let i = 0; i < metafields.length; i += 25) {
     const batch = metafields.slice(i, i + 25);
