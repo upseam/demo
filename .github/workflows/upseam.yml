@@ -3,15 +3,40 @@ on:
   schedule:
     - cron: "17 6 * * 1"
   workflow_dispatch:
+    inputs:
+      project:
+        description: Project to scan
+        type: choice
+        default: saas
+        options:
+          - saas
+          - stripe-billing
+          - shopify
+          - all
 permissions:
   contents: read
 jobs:
+  projects:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+    steps:
+      - id: pick
+        env:
+          PROJECT: ${{ inputs.project }}
+        run: |
+          case "${PROJECT:-all}" in
+            all) echo 'matrix=["saas","stripe-billing","shopify"]' >> "$GITHUB_OUTPUT" ;;
+            saas|stripe-billing|shopify) echo "matrix=[\"${PROJECT}\"]" >> "$GITHUB_OUTPUT" ;;
+            *) echo "Unknown project" >&2; exit 1 ;;
+          esac
   upseam:
+    needs: projects
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        project: [saas, stripe-billing, shopify]
+        project: ${{ fromJSON(needs.projects.outputs.matrix) }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:

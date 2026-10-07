@@ -5,10 +5,10 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit && node --test \"test/*.test.ts\""
   },
   "dependencies": {
-    "@shopify/shopify-api": "11.14.0"
+    "@shopify/shopify-api": "12.0.0"
   },
   "devDependencies": {
     "@types/node": "22.10.2",
