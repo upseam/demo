@@ -28,7 +28,7 @@ Sources: [OpenAI deprecations](https://developers.openai.com/api/docs/deprecatio
 - **Free report.** Actions → `upseam` → Run workflow. Pick a project, or `all`. Each run page lists the outdated calls as `file:line` with the vendor change.
 - **Pull request.** Install the [Upseam App](https://docs.upseam.dev/install/) on a fork. `saas/src/ai/models.ts` holds a model id that OpenAI shuts down on October 23, 2026. The App opens a one-line pull request to `gpt-5.6-sol`.
 - **Needs you.** Stripe and Shopify changes behind an SDK upgrade change what the code means, so Upseam lists them for a person instead of guessing.
-- **CLI.** In `shopify/`, run `npx @upseam/cli inspect shopify .` to see the changes that hit the code when Shopify falls forward to `2026-01`.
+- **CLI.** In `shopify/`, run `npx @upseam/cli inspect shopify .` to see the changes after `2025-10` that hit the code.
 
 ## Run locally
 
